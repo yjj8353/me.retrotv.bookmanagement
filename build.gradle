@@ -1,0 +1,127 @@
+import org.gradle.internal.os.OperatingSystem
+
+plugins {
+	id 'org.springframework.boot' version '2.7.2'
+	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	id 'java'
+}
+
+sourceSets {
+
+	// profile 기본 값은 dev
+	ext.profile = 'dev'
+
+	// 외부에서 -PisProd= 인자로 값이 들어온 경우 ext.isProd 변수에 값을 할당 함
+	ext.isTest = (!project.hasProperty('isTest') || !isTest) ? 'false' : isTest
+
+	// isProd 값이 true면 배포용 프로파일로 변경 됨
+	if(isTest == 'true') {
+		ext.profile = 'test'
+	}
+
+	// 외부에서 -PisProd= 인자로 값이 들어온 경우 ext.isProd 변수에 값을 할당 함
+	ext.isProd = (!project.hasProperty('isProd') || !isProd) ? 'false' : isProd
+
+	// isProd 값이 true면 배포용 프로파일로 변경 됨
+	if(isProd == 'true') {
+		ext.profile = 'prod'
+	}
+
+	println "Selected profile: ${profile}"
+
+	main {
+		java {
+			srcDirs "src/main/java"
+		}
+
+		// application.properties 파일이 존재하는 Dir 경로들
+		resources {
+			srcDirs "src/main/resources-env/${profile}", "src/main/resources"
+		}
+	}
+}
+
+tasks {
+
+	// application.properties 파일이 여러개 읽힐 경우에 대한 처리방법 
+	processResources {
+		
+		// INCLUDE는 application.properties 끼리 병합함
+		duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.INCLUDE
+	}
+}
+
+group = 'me.retrotv'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+// *plain.jar 생성 방지
+jar {
+    enabled = false
+}
+
+bootJar {
+	archiveFileName = "${rootProject.name}.jar"
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.0'
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.projectlombok:lombok'
+	implementation group: 'org.jsoup', name: 'jsoup', version: '1.15.3'
+
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	// JJWT
+	implementation 'com.auth0:java-jwt:3.19.2'
+
+    // H2 DB
+	implementation 'com.h2database:h2'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+}
+
+test {
+	testLogging {
+		
+        // test jvm의 standard out and standard error을 console에 출력한다.
+        showStandardStreams = true
+        showCauses = true
+        showExceptions = true
+        showStackTraces = true
+        exceptionFormat = 'full'
+    }
+
+	// filter가 있으면 특정 클래스 혹은 함수만 테스트 할 수 있다.
+	// filter {
+	// 	includeTestsMatching "me.retrotv.bookmanagement.integration.domain.book.BookControllerTest"
+	// 	includeTestsMatching "me.retrotv.bookmanagement.integration.domain.book.BookServiceTest"
+	// 	includeTestsMatching "me.retrotv.bookmanagement.integration.domain.image.ImageControllerTest"
+	// 	includeTestsMatching "me.retrotv.bookmanagement.integration.domain.image.ImageServiceTest"
+	// 	includeTestsMatching "me.retrotv.bookmanagement.integration.domain.jwt.JwtServiceTest"
+	// 	includeTestsMatching "me.retrotv.bookmanagement.integration.domain.member.JoinTest"
+	// 	includeTestsMatching "me.retrotv.bookmanagement.integration.domain.member.LoginTest"
+	// }
+
+	useJUnitPlatform()
+}

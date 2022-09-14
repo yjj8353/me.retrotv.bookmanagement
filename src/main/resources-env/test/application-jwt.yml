@@ -1,0 +1,10 @@
+jwt:
+  secret: test-secret-key-value
+
+  access:
+    expiration: 180
+    header: Authorization
+
+  refresh:
+    expiration: 600
+    header: Authorization-refresh

@@ -1,0 +1,38 @@
+{"properties": [
+  {
+    "name": "file-save-path",
+    "type": "java.lang.String",
+    "defaultValue": "",
+    "description": "파일 저장 경로"
+  },
+  {
+    "name": "windows-drive",
+    "type": "java.lang.String",
+    "description": "Windows 운영체제 사용시 사용할 디스크 드라이브 정보"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "JWT 토큰 발급 시, 사용하는 암복호화용 키 (유출 주의)"
+  },
+  {
+    "name": "jwt.access.expiration",
+    "type": "java.lang.String",
+    "description": "Access 토큰 파기 기한 (초)"
+  },
+  {
+    "name": "jwt.access.header",
+    "type": "java.lang.String",
+    "description": "Access 토큰을, Http header에 Value로 세팅시 사용할 Key 이름"
+  },
+  {
+    "name": "jwt.refresh.expiration",
+    "type": "java.lang.String",
+    "description": "Refresh 토큰 파기 기한 (초)"
+  },
+  {
+    "name": "jwt.refresh.header",
+    "type": "java.lang.String",
+    "description": "Refresh 토큰을, Http header에 Value로 세팅시 사용할 Key 이름"
+  }
+]}

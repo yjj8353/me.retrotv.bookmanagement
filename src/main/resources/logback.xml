@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}] [%thread] [%-5level] [%logger{36}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <file>log/log.txt</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+            <!-- 매일 로그파일이 누적되게 함 -->
+            <fileNamePattern>log/log-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+
+                <!-- 단일 파일 최대 크기 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%-5level] %d{HH:mm:ss.SSS} %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="WARN">
+        <appender-ref ref="STDOUT" />
+    </root>
+    
+    <!-- dev env -->
+    <springProfile name="dev"> 
+        <logger name="httpclient" level="WARN" />
+        <logger name="com.zaxxer.hikari.HikariConfig" level="DEBUG" />
+        <logger name="org.apache" level="WARN" />
+        <logger name="org.hibernate" level="WARN" />
+        <logger name="org.hibernate.cfg.AnnotationBinder" level="WARN" />
+        <logger name="org.hibernate.cfg.annotations" level="WARN" />
+        <logger name="org.quartz" level="WARN" />
+        <logger name="org.springframework" level="WARN" />
+        <logger name="org.springframework.security" level="DEBUG" />
+        <logger name="org.springframework.web.filter" level="INFO" />
+        <logger name="me.retrotv.bookmanagement.domain" level="DEBUG" />
+        <logger name="me.retrotv.bookmanagement.integration.domain" level="DEBUG" />
+        <logger name="me.retrotv.bookmanagement.unit.domain" level="DEBUG" />
+    </springProfile>
+
+    <!-- test env -->
+    <springProfile name="test">
+        <logger name="com.zaxxer.hikari.HikariConfig" level="DEBUG" />
+        <logger name="org.springframework.*" level="INFO" /> 
+        <logger name="me.retrotv.bookmanagement.domain" level="DEBUG" />
+        <logger name="me.retrotv.bookmanagement.integration.domain" level="DEBUG" />
+        <logger name="me.retrotv.bookmanagement.unit.domain" level="DEBUG" />
+    </springProfile>
+
+    <!-- prod env --> 
+    <springProfile name="prod"> 
+        <logger name="me.retrotv.bookmanagement.domain" level="WARN" />
+    </springProfile>
+
+</configuration>

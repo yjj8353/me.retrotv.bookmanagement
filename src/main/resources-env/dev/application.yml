@@ -1,0 +1,30 @@
+spring:
+  profiles:
+    active: dev
+    include: jwt
+  datasource:
+    username: <db_username>
+    password: <db_password>
+    url: jdbc:postgresql://localhost:5432/<db_name>
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        '[format_sql]': true
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    open-in-view: true
+
+server:
+  # ssl:
+  #   enabled: true
+  #   key-store: classpath:keystore.p12
+  #   key-store-password: <ssl_password>
+  #   key-store-type: PKCS12
+  port: 8080
+  servlet:
+    context-path: /
+
+file-save-path: <path>
+windows-drive: <drive>
