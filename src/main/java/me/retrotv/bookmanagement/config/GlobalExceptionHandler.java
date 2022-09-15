@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.retrotv.bookmanagement.exception.CertifyFailException;
 import me.retrotv.bookmanagement.exception.CommonServerErrorException;
 import me.retrotv.bookmanagement.exception.NoSuchApiElementException;
+import me.retrotv.bookmanagement.exception.PasswordChangeFailException;
 import me.retrotv.bookmanagement.exception.XmlParseErrorException;
 import me.retrotv.bookmanagement.response.BasicError;
 import me.retrotv.bookmanagement.response.BasicResult;
@@ -38,7 +39,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<BasicResult> handle(NoSuchElementException exception) {
-        log.error(exception.getMessage());
+        log.debug(exception.getMessage());
         BasicError result = new BasicError(ERROR_COMMON_MESSAGE, null, HttpStatus.NOT_FOUND);
         return ResponseEntity.status(result.getStatus()).body(result);
     }
@@ -50,7 +51,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(FileNotFoundException.class)
     public ResponseEntity<BasicResult> handle(FileNotFoundException exception) {
-        log.error("저장소에 저장된 이미지 파일이 없습니다.");
+        log.debug("저장소에 저장된 이미지 파일이 없습니다.");
         BasicError result = new BasicError(ERROR_COMMON_MESSAGE, null, HttpStatus.NOT_FOUND);
         return ResponseEntity.status(result.getStatus()).body(result);
     }
@@ -62,7 +63,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<BasicResult> handle(MethodArgumentNotValidException exception) {
-        log.error("유효성 검사에 실패했습니다.");
+        log.debug("유효성 검사에 실패했습니다.");
         BasicError result = new BasicError(exception.getBindingResult().getAllErrors().get(0).getDefaultMessage(), null, HttpStatus.BAD_REQUEST);
         return ResponseEntity.status(result.getStatus()).body(result);
     }
@@ -74,7 +75,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<BasicResult> handle(ValidationException exception) {
-        log.error("유효성 검사에 실패했습니다.");
+        log.debug("유효성 검사에 실패했습니다.");
         BasicError result = new BasicError(exception.getMessage(), null, HttpStatus.BAD_REQUEST);
         return ResponseEntity.status(result.getStatus()).body(result);
     }
@@ -84,43 +85,50 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(IOException.class)
     public ResponseEntity<BasicResult> handle(IOException exception) {
-        log.error("IOException이 발생했습니다.");
+        log.debug("IOException이 발생했습니다.");
         BasicError result = new BasicError(exception.getMessage());
         return ResponseEntity.status(result.getStatus()).body(result);
     }
 
     @ExceptionHandler(HttpClientErrorException.class)
     public ResponseEntity<BasicResult> handle(HttpClientErrorException exception) {
-        log.error("HttpClientErrorException이 발생했습니다.");
+        log.debug("HttpClientErrorException이 발생했습니다.");
         BasicError result = new BasicError("잘못된 ISBN 값을 입력한 것 같습니다.\nISBN을 값을 확인해 주세요", exception.getStatusCode());
         return ResponseEntity.status(result.getStatus()).body(result);
     }
 
     @ExceptionHandler(NoSuchApiElementException.class)
     public ResponseEntity<BasicResult> handle(NoSuchApiElementException exception) {
-        log.error("NoSuchApiElementException이 발생했습니다.");
+        log.debug("NoSuchApiElementException이 발생했습니다.");
         BasicResult result = new BasicResult(exception.getMessage());
         return ResponseEntity.status(result.getStatus()).body(result);
     }
 
     @ExceptionHandler(XmlParseErrorException.class)
     public ResponseEntity<BasicResult> handle(XmlParseErrorException exception) {
-        log.error("XML 파싱 예외가 발생했습니다.");
+        log.debug("XML 파싱 예외가 발생했습니다.");
         BasicError result = new BasicError(exception.getMessage());
         return ResponseEntity.status(result.getStatus()).body(result);
     }
 
     @ExceptionHandler(CertifyFailException.class)
     public ResponseEntity<BasicResult> handle(CertifyFailException exception) {
-        log.error("인증 실패 예외가 발생했습니다.");
+        log.debug("인증 실패 예외가 발생했습니다.");
         BasicError result = new BasicError(exception.getMessage(), HttpStatus.BAD_REQUEST);
         return ResponseEntity.status(result.getStatus()).body(result);
     }
 
     @ExceptionHandler(CommonServerErrorException.class)
     public ResponseEntity<BasicResult> handle(CommonServerErrorException exception) {
-        log.error(exception.getMessage());
+        log.debug(exception.getMessage());
         BasicError result = new BasicError();
+        return ResponseEntity.status(result.getStatus()).body(result);
+    }
+
+    @ExceptionHandler(PasswordChangeFailException.class)
+    public ResponseEntity<BasicResult> handle(PasswordChangeFailException exception) {
+        log.debug("패스워드 변경 실패 예외가 발생했습니다.");
+        BasicError result = new BasicError(exception.getMessage(), HttpStatus.BAD_REQUEST);
         return ResponseEntity.status(result.getStatus()).body(result);
     }
 }

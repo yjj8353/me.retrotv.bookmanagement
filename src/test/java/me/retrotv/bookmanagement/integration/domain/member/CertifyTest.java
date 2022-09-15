@@ -85,7 +85,7 @@ class CertifyTest {
                      .password(PASSWORD)
                      .realName("This is real name")
                      .nickName("This is nickname")
-                     .email("yjj8353@gmail.com")
+                     .email("test@test.com")
                      .role(Role.ADMIN)
                      .build()
         );
@@ -103,7 +103,7 @@ class CertifyTest {
     @Order(2)
     @DisplayName("이메일 전송 테스트")
     void sendMail() {
-        String address = "yjj8353@naver.com";
+        String address = "test@test.com";
         String subject = "가입 확인용 이메일";
 
         log.debug("링크: " + String.format("<a>https://localhost:8080/certify?username=%s&passcode=%s</a>", USERNAME, this.passcode));

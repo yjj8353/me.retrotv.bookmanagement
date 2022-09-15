@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
 
 /**
  * 유저({@link Member}) 리포지토리 계층.
@@ -28,6 +27,8 @@ public interface MemberRepository extends JpaRepository<Member, String>, JpaSpec
      */
     Optional<Member> findByEmail(String email);
 
+    Optional<Member> findByPasscode(String passcode);
+
     /**
      * 유저의 ID로 한명의 유저 정보를 되돌려주는 함수.
      * @param username 유저의 ID
@@ -43,8 +44,7 @@ public interface MemberRepository extends JpaRepository<Member, String>, JpaSpec
      */
     Optional<Member> findByRefreshToken(String refreshToken);
 
-    @Query(value = "SELECT EXISTS (SELECT * FROM MEMBER);", nativeQuery = true)
-    boolean existsMemeber();
+    Optional<Member> findByPasswordOrPasscode(String password, String passcode);
 
     List<Member> findByIsCertifiedFalse();
 }

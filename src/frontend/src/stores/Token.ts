@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { defineStore } from 'pinia';
 import { Cookies } from 'quasar';
 import { Response } from 'src/class/response';
@@ -62,9 +62,9 @@ export const useTokenStore = defineStore('token', {
     /**
      * 토큰이 유효한지 백엔드에 요청하는 함수.
      */
-    checkTokenValid(): void {
+    async checkTokenValid(): Promise<boolean> {
       if(this.refreshToken === '') {
-        return;
+        return false;
       }
 
       const jwt = {
@@ -77,18 +77,9 @@ export const useTokenStore = defineStore('token', {
        * axiosInstance를 사용하면 오류가 발생함.
        * Vue lifecycle 상, Token store가 설정 되기전에 실행되서 그런것으로 보임.
        */
-      axios.post('/api/jwt/valid', jwt, {
+      const axiosResponse = await axios.post('/api/jwt/valid', jwt, {
         headers: {
           'Content-Type': 'application/json',
-        }
-      }).then((axiosReponse) => {
-        const response = new Response(axiosReponse);
-        const isValid = response.data.isValid;
-        if(isValid) {
-          const accessToken = response.headers['authorization'];
-          const refreshToken = response.headers['authorization-refresh'];
-          this.setToken(accessToken, refreshToken);
-          this.setRefreshTokenOnCookies(refreshToken);
         }
       }).catch((error) => {
         const status = error.response.status;
@@ -96,8 +87,24 @@ export const useTokenStore = defineStore('token', {
           this.accessToken = '';
           this.refreshToken = '';
           Cookies.remove('refreshToken');
+          return false;
         }
-      })
+      });
+
+      if(axiosResponse === false) {
+        return axiosResponse;
+      }
+
+      const response = new Response(axiosResponse as unknown as AxiosResponse);
+      const isValid = response.data.isValid;
+      if(isValid) {
+        const accessToken = response.headers['authorization'];
+        const refreshToken = response.headers['authorization-refresh'];
+        this.setToken(accessToken, refreshToken);
+        this.setRefreshTokenOnCookies(refreshToken);
+      }
+
+      return true;
     }
   }
 })

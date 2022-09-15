@@ -20,7 +20,7 @@ export default defineComponent({
   },
 
   mounted() {
-    if(this.token.refreshToken) {
+    if(!this.token.getRefreshToken) {
       this.$router.replace('/login');
     }
   }

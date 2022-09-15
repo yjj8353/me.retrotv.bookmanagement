@@ -74,7 +74,7 @@ public class SpringSecurityConfig {
 
             // 여기에 기술한 URI를 제외한 나머지는 모두 인증이 필요하도록 설정한다.
             .authorizeRequests()
-            .antMatchers("/api/member/login", "/api/member/join", "/api/member/logout", "/api/member/certify", "/api/book/search", "/api/image/download", "/api/jwt/valid").permitAll()
+            .antMatchers("/api/member/login", "/api/member/join", "/api/member/logout", "/api/member/certify", "/api/member/password-change-none-auth", "/api/member/password-change-email-send", "/api/book/search", "/api/image/download", "/api/jwt/valid").permitAll()
             .anyRequest().authenticated();
         
         // Filter 순서에 주의, After와 Before 둘이 뒤바뀌면 실행이 안됨.

@@ -24,8 +24,8 @@ public class MailUtil {
     }
 
     public static void sendMail(String address, String subject, String text) {
-        String user = "";
-        String password = "";
+        String user = "yjj8353@gmail.com";
+        String password = "cxzwzmvurzdpgknt";
 
 		mailServerProperties = System.getProperties();
         mailServerProperties.put("mail.smtp.host", "smtp.gmail.com");
@@ -45,7 +45,7 @@ public class MailUtil {
         try {
             MimeMessage message = new MimeMessage(session);
             
-            message.setFrom(new InternetAddress("", "no-reply"));
+            message.setFrom(new InternetAddress("no-reply@retrotv.me", "no-reply"));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(address)); 
 
             // 타이틀

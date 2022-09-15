@@ -182,7 +182,7 @@ class BookControllerTest {
                                                                       .param("title", "AWS")
                                                                       .param("authorName", "")
                                                                       .param("publisherName", "")
-                                                                      .param("username", "bookcontroller")
+                                                                      .param("refreshToken", refreshToken)
                                                                       .param("size", "10")
                                                                       .param("page", "0"))
                                        .andDo(print())

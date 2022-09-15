@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import { IMember, MemberBuilder } from 'src/class/member';
 import { Response } from 'src/class/response';
 import { KeyType, Result } from 'src/class/result';
-import { axiosInstance } from 'src/util/AxiosInstance';
+import { axiosInstance, axiosInstanceWithAuth } from 'src/util/AxiosInstance';
 
 import { useTokenStore } from './Token';
 
@@ -135,6 +135,83 @@ export const useLoginUser = defineStore('loginUser', {
       }
 
       return result;
+    },
+
+    async passwordChange(orgPassword: string, newPassword: string, newPasswordCheck: string, refreshToken: string, passcode: string): Promise<Result> {
+      const result = new Result();
+      let url = '';
+
+      if(orgPassword) {
+        url = '/api/member/password-change-with-auth';
+      }
+
+      if(passcode) {
+        url = '/api/member/password-change-none-auth';
+      }
+
+      if(newPassword !== newPasswordCheck) {
+        result.add(KeyType.SUCCESS, false);
+        result.add(KeyType.MESSAGE, '새로운 패스워드와 새로운 패스워드 확인 값이 다릅니다.');
+
+        return result;
+      }
+
+      const member = {
+        orgPassword: orgPassword,
+        newPassword: newPassword,
+        newPasswordCheck: newPasswordCheck,
+        refreshToken: refreshToken,
+        passcode: passcode
+      }
+
+      const axiosResponse = await axiosInstanceWithAuth.post(url, member, {
+        headers: {
+          'content-type': 'application/json'
+        }
+      }).catch((error) => {
+        if(error.response.status === 417) {
+          return this.passwordChange(orgPassword, newPassword, newPasswordCheck, refreshToken, passcode);
+        } else {
+          result.add(KeyType.SUCCESS, error.response.data.success);
+          result.add(KeyType.MESSAGE, error.response.data.message);
+          return result;
+        }
+      });
+
+      if(axiosResponse instanceof Result) {
+        return axiosResponse;
+      } else {
+        const response = new Response(axiosResponse as unknown as AxiosResponse);
+        const success = response.success;
+        const message = response.message;
+
+        result.add(KeyType.SUCCESS, success);
+        result.add(KeyType.MESSAGE, message);
+
+        return result;
+      }
+    },
+
+    async sendEmailPasswordChange(email: string): Promise<Response> {
+      const axiosResponse = await axiosInstance.get('/api/member/password-change-email-send', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        params: { email: email }
+      }).catch((error) => {
+        if(error.response.status === 404 || error.response.status === 500) {
+          return new Response(error.response);
+        }
+      });
+
+      let response;
+      if(axiosResponse instanceof Response) {
+        response = axiosResponse;
+      } else {
+        response = new Response(axiosResponse as unknown as AxiosResponse);
+      }
+
+      return response
     }
   }
 });

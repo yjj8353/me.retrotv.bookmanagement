@@ -72,6 +72,7 @@ class LoginTest {
                      .password(PASSWORD)
                      .realName("This is real name")
                      .nickName("This is nickname")
+                     .email("test@test.com")
                      .role(Role.ADMIN)
                      .build()
         );

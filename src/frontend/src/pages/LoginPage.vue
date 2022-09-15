@@ -58,9 +58,9 @@
         <div class="row">
           <div v-if="!btnDisable2" class="col">
             <q-btn
-              @click="clickFindPassword"
+              @click="clickChangePassword"
               color="warning"
-              label="패스워드 찾기"
+              label="패스워드 분실"
               size="20px"
               style="margin: 5px 0 0 0; width: 100%"
             />
@@ -219,8 +219,10 @@ export default defineComponent({
       }
     },
 
-    clickFindPassword() {
-      console.log('click')
+    clickChangePassword() {
+      this.$router.push({
+        name: 'LostPassword'
+      })
     },
 
     /**

@@ -35,9 +35,25 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/CertifyPage.vue'),
       },
       {
+        path: 'change-password',
+        name: 'ChangePassword',
+        component: () => import('pages/ChangePassword.vue'),
+      },
+      {
         path: 'login',
-        name: 'LoginPage',
-        component: () => import('pages/LoginPage.vue'),
+        component: () => import('layouts/MainLayout.vue'),
+        children: [
+          {
+            path: '',
+            name: 'LoginPage',
+            component: () => import('pages/LoginPage.vue'),
+          },
+          {
+            path: 'lost-password',
+            name: 'LostPassword',
+            component: () => import('pages/LostPassword.vue'),
+          }
+        ]
       },
       {
         path: 'search-result',

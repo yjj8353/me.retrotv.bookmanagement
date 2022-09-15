@@ -1,18 +1,34 @@
 <template>
   <div :class="background">
     <div>
-      <div style="font-size: 12vh">
-        {{ title }}
-      </div>
-
-      <div class="text-h3" style="opacity:.4">
+      <div class="text-h3">
         {{ text }}
       </div>
+
+      <q-input v-model="newPassword" :type="isPwd1 ? 'password' : 'text'" label="새로운 패스워드" maxlength="20">
+        <template v-slot:append>
+          <q-icon
+            :name="isPwd1 ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd1 = !isPwd1"
+          />
+        </template>
+      </q-input>
+      <q-input v-model="newPasswordCheck" :type="isPwd2 ? 'password' : 'text'" label="새로운 패스워드 확인" maxlength="20">
+        <template v-slot:append>
+          <q-icon
+            :name="isPwd2 ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd2 = !isPwd2"
+          />
+        </template>
+      </q-input>
+
       <br />
 
       <q-btn v-if="disableBtn"
         color="white"
-        @click="clickCertify"
+        @click="clickChangePassword"
         :text-color="btnTextColor"
         :label="btnLabel"
         disable
@@ -20,7 +36,7 @@
       />
       <q-btn v-else
         color="white"
-        @click="clickCertify"
+        @click="clickChangePassword"
         :text-color="btnTextColor"
         :label="btnLabel"
         size="20px"
@@ -36,7 +52,7 @@ import { useLoginUser } from 'src/stores/LoginUser';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'CertifyPage',
+  name: 'ChangePassword',
 
   setup: () => ({
     admin: useAdminStore(),
@@ -46,12 +62,15 @@ export default defineComponent({
   }),
 
   data:() => ({
+    isPwd1: true,
+    isPwd2: true,
     background: 'fullscreen bg-blue-5 text-white text-center q-pa-md flex flex-center',
-    btnLabel: '인증',
+    btnLabel: '변경',
     btnTextColor: 'blue',
     disableBtn: false,
-    title: '확인',
-    text: '인증 버튼을 클릭해 주세요',
+    newPassword: '',
+    newPasswordCheck: '',
+    text: '패스워드 변경',
   }),
 
   mounted() {
@@ -60,31 +79,28 @@ export default defineComponent({
   },
 
   methods: {
-    async clickCertify() {
+    async clickChangePassword() {
       if(this.btnLabel === '로그인') {
         this.loginUser.logout();
         this.$router.replace('/login');
       } else {
-        this.title = '인증 중...';
-        this.text = '인증하는 중 입니다';
+        this.text = '변경하는 중 입니다';
         this.disableBtn = true;
 
-        const result = await this.admin.certifyMember(this.username, this.passcode);
+        const result = await this.loginUser.passwordChange('', this.newPassword, this.newPasswordCheck, '', this.passcode);
         const success = result.get(KeyType.SUCCESS);
 
         if(success) {
           this.background = 'fullscreen bg-green text-white text-center q-pa-md flex flex-center';
-          this.title = '완료!';
-          this.text = '인증이 완료되었습니다!';
+          this.text = '변경이 완료되었습니다!';
           this.btnTextColor = 'green';
           this.btnLabel = '로그인';
           this.disableBtn = false;
         } else {
           this.background = 'fullscreen bg-red text-white text-center q-pa-md flex flex-center';
-          this.title = '실패!';
-          this.text = '인증을 다시 시도해 주세요';
+          this.text = '패스워드 변경에 실패했습니다!\n다시 시도해 주세요.';
           this.btnTextColor = 'red';
-          this.btnLabel = '인증';
+          this.btnLabel = '변경';
           this.disableBtn = false;
         }
       }

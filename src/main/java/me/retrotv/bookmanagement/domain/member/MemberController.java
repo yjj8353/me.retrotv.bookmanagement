@@ -67,4 +67,22 @@ public class MemberController {
         BasicResult result = memberService.certifyMember(username, passcode);
         return ResponseEntity.status(result.getStatus()).body(result);
     }
+
+    @PostMapping("/password-change-with-auth")
+    public ResponseEntity<BasicResult> passwordChangeWithAuth(@Valid @RequestBody MemberDTO.ChangePassword memberDTO) {
+        BasicResult result = memberService.changePassword(memberDTO);
+        return ResponseEntity.status(result.getStatus()).body(result);
+    }
+
+    @PostMapping("/password-change-none-auth")
+    public ResponseEntity<BasicResult> passwordChangeNoneAuth(@Valid @RequestBody MemberDTO.ChangePassword memberDTO) {
+        BasicResult result = memberService.changePassword(memberDTO);
+        return ResponseEntity.status(result.getStatus()).body(result);
+    }
+
+    @GetMapping("/password-change-email-send")
+    public ResponseEntity<BasicResult> passwordChangeEmailSend(@RequestParam("email") String email) {
+        BasicResult result = memberService.passwordChangeEmailSend(email);
+        return ResponseEntity.status(result.getStatus()).body(result);
+    }
 }

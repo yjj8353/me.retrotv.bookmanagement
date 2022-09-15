@@ -35,7 +35,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     private GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
 
-    private static final List<String> NO_CHECK_URL_LIST = Arrays.asList("/", "/index.html", "/favicon.ico", "/member/login", "/member/join", "/member/logout", "/member/certify", "/book/search", "/image/download", "/jwt/valid");
+    private static final List<String> NO_CHECK_URL_LIST = Arrays.asList("/", "/index.html", "/favicon.ico", "/member/login", "/member/join", "/member/logout", "/member/certify", "/member/password-change-none-auth", "/member/password-change-email-send", "/book/search", "/image/download", "/jwt/valid");
 
     /**
      * * OncePerRequestFilter 클래스 로부터 상속받음.
