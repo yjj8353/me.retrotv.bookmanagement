@@ -46,18 +46,17 @@ export default defineComponent({
     const loginUser = useLoginUser()
     const token = useTokenStore()
     const emailRef: VNodeRef = ref(null)
-    const email = ''
 
     return {
       loginUser,
       token,
-      emailRef,
-      email
+      emailRef
     }
   },
 
   data: () => ({
-    disableBtn: false
+    disableBtn: false,
+    email: ''
   }),
 
   methods: {

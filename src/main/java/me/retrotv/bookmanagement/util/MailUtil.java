@@ -24,8 +24,8 @@ public class MailUtil {
     }
 
     public static void sendMail(String address, String subject, String text) {
-        String user = "yjj8353@gmail.com";
-        String password = "cxzwzmvurzdpgknt";
+        String user = "test@gmail.com";
+        String password = "";
 
 		mailServerProperties = System.getProperties();
         mailServerProperties.put("mail.smtp.host", "smtp.gmail.com");

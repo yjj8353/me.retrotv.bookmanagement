@@ -5,24 +5,26 @@
         {{ text }}
       </div>
 
-      <q-input v-model="newPassword" :type="isPwd1 ? 'password' : 'text'" label="새로운 패스워드" maxlength="20">
-        <template v-slot:append>
-          <q-icon
-            :name="isPwd1 ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="isPwd1 = !isPwd1"
-          />
-        </template>
-      </q-input>
-      <q-input v-model="newPasswordCheck" :type="isPwd2 ? 'password' : 'text'" label="새로운 패스워드 확인" maxlength="20">
-        <template v-slot:append>
-          <q-icon
-            :name="isPwd2 ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="isPwd2 = !isPwd2"
-          />
-        </template>
-      </q-input>
+      <div v-if="!isPasswordChangeSuccess">
+        <q-input v-model="newPassword" :type="isPwd1 ? 'password' : 'text'" label="새로운 패스워드" maxlength="20">
+          <template v-slot:append>
+            <q-icon
+              :name="isPwd1 ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd1 = !isPwd1"
+            />
+          </template>
+        </q-input>
+        <q-input v-model="newPasswordCheck" :type="isPwd2 ? 'password' : 'text'" label="새로운 패스워드 확인" maxlength="20">
+          <template v-slot:append>
+            <q-icon
+              :name="isPwd2 ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd2 = !isPwd2"
+            />
+          </template>
+        </q-input>
+      </div>
 
       <br />
 
@@ -64,6 +66,7 @@ export default defineComponent({
   data:() => ({
     isPwd1: true,
     isPwd2: true,
+    isPasswordChangeSuccess: false,
     background: 'fullscreen bg-blue-5 text-white text-center q-pa-md flex flex-center',
     btnLabel: '변경',
     btnTextColor: 'blue',
@@ -96,6 +99,7 @@ export default defineComponent({
           this.btnTextColor = 'green';
           this.btnLabel = '로그인';
           this.disableBtn = false;
+          this.isPasswordChangeSuccess = true;
         } else {
           this.background = 'fullscreen bg-red text-white text-center q-pa-md flex flex-center';
           this.text = '패스워드 변경에 실패했습니다!\n다시 시도해 주세요.';
