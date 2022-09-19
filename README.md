@@ -41,7 +41,10 @@
 * Docker
 
 # 어플리케이션 구조
-![어플리케이션 구조](https://3571514308-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FD6dAOCAQfCwTaIXfPRSa%2Fuploads%2FFZVnbVShR0XP9OyIAT18%2F%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%EC%A1%B0.png?alt=media&token=4d47b351-90fa-49a2-a09b-6ffa88a5186c)
+![어플리케이션 구조](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FD6dAOCAQfCwTaIXfPRSa%2Fuploads%2FQFPNlwJtNYIVgGSLBivk%2F%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%EC%A1%B0.png?alt=media&token=4115a839-b15b-492a-9016-a9965030561b)
+
+# 프로젝트 배포 구조
+![프로젝트 배포 구조](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FD6dAOCAQfCwTaIXfPRSa%2Fuploads%2FJRiPjxRTAx0XtfOmP38h%2F%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%981.png?alt=media&token=c62aa5b0-f901-4421-8a1c-f586893852ce)
 
 # 데이터베이스 ERD
 ![데이터베이스 ERD](https://3571514308-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FD6dAOCAQfCwTaIXfPRSa%2Fuploads%2FpzSmsXzwLrf3mWbtpPZ0%2Fpostgres-1663133979221.png?alt=media&token=eb2ad741-18eb-4a70-aadf-b5ae688dcfa4)
