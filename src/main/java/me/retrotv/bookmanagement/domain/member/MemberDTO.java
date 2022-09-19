@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.retrotv.bookmanagement.domain.member.Member.Role;
+import me.retrotv.bookmanagement.validator.Password;
 import me.retrotv.bookmanagement.validator.Username;
 
 /**
@@ -34,6 +35,7 @@ public class MemberDTO {
     /*
      * 사용자의 패스워드
      */
+    @Password
     private String password;
     
     /*
@@ -141,11 +143,13 @@ public class MemberDTO {
         /*
          * 사용자의 새로운 패스워드
          */
+        @Password
         private String newPassword;
 
         /*
          * 사용자의 새로운 패스워드 체크용
          */
+        @Password
         private String newPasswordCheck;
 
         /*
