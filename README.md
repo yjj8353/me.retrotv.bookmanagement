@@ -5,6 +5,9 @@
 * 데모 사이트를 사용하기 전에 README 읽어주시고 숙지해 주시기 바랍니다.
 * 현재 데모 사이트는 개발 단계의 사이트로 개발자가 인지하지 못한 오류가 있을 수 있습니다. 오류를 발견하시면 이슈로 알려주세요!
 
+# 프로젝트 동작과정 (사진 포함)
+https://yjj8353.gitbook.io/bookmanagement/undefined-4
+
 # 데모 사이트
 https://bookmanagement.retrotv.me:8443
 
@@ -56,9 +59,6 @@ https://bookmanagement.retrotv.me:8443
 
 # API 문서
 https://yjj8353.gitbook.io/bookmanagement/api
-
-# 프로젝트 동작과정
-https://yjj8353.gitbook.io/bookmanagement/undefined-4
 
 # 진행하면서 아쉬웠던 점
 프로젝트를 진행하면서 크게 아쉬웠던 점을 꼽으라면 두가지가 있었습니다. 하나는 권한 분리를 제대로 하지 못해 관리자만의 기능을 웹으로 구현하지 못하고 직접 서버상에서 작업해줘야 한다 것과 OSIV(Open Session In View)에 기능으로 인한 지연로딩 오류 였습니다. 관리자 기능의 웹 구현은 현재 만드는 프로젝트의 문제점이나 부족한 점을 파악하고 차기버전 개발 시 해당 내용을 토대로 재개발 예정이며 OSIV로 인한 문제는 JPA의 영속과 준영속에 대한 개념의 이해로 해결이 가능했습니다.
