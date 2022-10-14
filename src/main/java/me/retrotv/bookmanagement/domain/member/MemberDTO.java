@@ -162,4 +162,21 @@ public class MemberDTO {
          */
         private String passcode;
     }
+
+    /**
+     * 로그아웃을 위한 유저 데이터 전송 객체
+     * @version 1.0
+     * @author yjj8353
+     */
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class LogoutMember {
+
+        /*
+         * 사용자의 Refresh Token
+         */
+        private String refreshToken;
+    }
 }

@@ -51,7 +51,7 @@ public class MemberController {
      * @return 로그아웃 결과값이 담긴 ResponseEntity 객체
      */
     @PostMapping("/logout")
-    public ResponseEntity<BasicResult> logout(@Valid @RequestBody MemberDTO memberDTO) {
+    public ResponseEntity<BasicResult> logout(@Valid @RequestBody MemberDTO.LogoutMember memberDTO) {
         BasicResult result = memberService.logoutMember(memberDTO.getRefreshToken().replace("Bearer ", ""));
         return ResponseEntity.status(result.getStatus()).body(result);
     }
