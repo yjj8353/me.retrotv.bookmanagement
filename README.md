@@ -1,7 +1,15 @@
 # 도서 관리 웹 어플리케이션
 
 # 주의사항
-* 프로젝트 기동 시, 필요한 키 값들이 보안상의 이유로 제거 되어 있기 때문에 빌드해도 동작하지 않습니다.
+* 프로젝트 기동 시, 필요한 키 값들이 보안상의 이유로 제거 되어 있기 때문에 이 리포지토리는 빌드해도 동작하지 않습니다.
+* 데모 사이트를 사용하기 전에 README 읽어주시고 숙지해 주시기 바랍니다.
+* 현재 데모 사이트는 개발 단계의 사이트로 개발자가 인지하지 못한 오류가 있을 수 있습니다. 오류를 발견하시면 이슈로 알려주세요!
+
+# 프로젝트 동작과정 (사진 포함)
+https://yjj8353.gitbook.io/bookmanagement/undefined-4
+
+# 데모 사이트
+https://bookmanagement.retrotv.me:8443
 
 # 프로젝트 설명
 ## 이 프로젝트는?
@@ -41,19 +49,16 @@
 * Docker
 
 # 어플리케이션 구조
-![어플리케이션 구조](https://3571514308-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FD6dAOCAQfCwTaIXfPRSa%2Fuploads%2FFZVnbVShR0XP9OyIAT18%2F%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%EC%A1%B0.png?alt=media&token=4d47b351-90fa-49a2-a09b-6ffa88a5186c)
+![어플리케이션 구조](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FD6dAOCAQfCwTaIXfPRSa%2Fuploads%2FQFPNlwJtNYIVgGSLBivk%2F%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B5%AC%EC%A1%B0.png?alt=media&token=4115a839-b15b-492a-9016-a9965030561b)
+
+# 프로젝트 배포 구조
+![프로젝트 배포 구조](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FD6dAOCAQfCwTaIXfPRSa%2Fuploads%2FJRiPjxRTAx0XtfOmP38h%2F%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%981.png?alt=media&token=c62aa5b0-f901-4421-8a1c-f586893852ce)
 
 # 데이터베이스 ERD
 ![데이터베이스 ERD](https://3571514308-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FD6dAOCAQfCwTaIXfPRSa%2Fuploads%2FpzSmsXzwLrf3mWbtpPZ0%2Fpostgres-1663133979221.png?alt=media&token=eb2ad741-18eb-4a70-aadf-b5ae688dcfa4)
 
 # API 문서
 https://yjj8353.gitbook.io/bookmanagement/api
-
-# 프로젝트 동작과정
-https://yjj8353.gitbook.io/bookmanagement/undefined-4
-
-# 데모
-https://bookmanagement.retrotv.me:8443
 
 # 진행하면서 아쉬웠던 점
 프로젝트를 진행하면서 크게 아쉬웠던 점을 꼽으라면 두가지가 있었습니다. 하나는 권한 분리를 제대로 하지 못해 관리자만의 기능을 웹으로 구현하지 못하고 직접 서버상에서 작업해줘야 한다 것과 OSIV(Open Session In View)에 기능으로 인한 지연로딩 오류 였습니다. 관리자 기능의 웹 구현은 현재 만드는 프로젝트의 문제점이나 부족한 점을 파악하고 차기버전 개발 시 해당 내용을 토대로 재개발 예정이며 OSIV로 인한 문제는 JPA의 영속과 준영속에 대한 개념의 이해로 해결이 가능했습니다.
