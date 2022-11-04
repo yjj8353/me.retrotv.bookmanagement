@@ -1,21 +1,14 @@
 package me.retrotv.bookmanagement.domain.image;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.retrotv.bookmanagement.domain.common.CommonEntity;
 
 /**
  * 이미지 엔티티
@@ -28,15 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "IMAGE")
-public class Image {
-    
-    /*
-     * 식별을 위한 고유 ID 값 [PRIMARY KEY]
-     */
-    @Id
-    @Column(name = "IMAGE_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+public class Image extends CommonEntity {
 
     /*
      * 원본 파일명 [NOT NULL]
@@ -62,23 +47,9 @@ public class Image {
     @Column(name = "IMAGE_PATH", nullable = false)
     private String path;
 
-    /*
-     * 등록 시간
-     */
-    @Column(name = "IMAGE_REGIST_DATE", nullable = false)
-    @CreationTimestamp
-    private LocalDateTime registDate;
-
-    /*
-     * 수정 시간
-     */
-    @Column(name = "IMAGE_UPDATE_DATE", nullable = false)
-    @UpdateTimestamp
-    private LocalDateTime updateDate;
-
     public ImageDTO toDTO() {
         return ImageDTO.builder()
-                       .id(this.id)
+                       .id(this.getId())
                        .name(this.name)
                        .proxyName(this.proxyName)
                        .format(this.format)

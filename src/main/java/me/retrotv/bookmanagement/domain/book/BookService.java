@@ -191,7 +191,6 @@ public class BookService {
         /* 출판사 정보 업데이트 */
         Publisher publisher = publisherRepository.findByName(bookDTO.getPublisherDTO().getName()).orElse(
             Publisher.builder()
-                     .id(null)
                      .name(bookDTO.getPublisherDTO().getName())
                      .build()
         );
@@ -203,7 +202,6 @@ public class BookService {
         bookDTO.getAuthorDTOs().forEach(authorDTO -> {
             Author author = authorRepository.findByName(authorDTO.getName()).orElse(
                 Author.builder()
-                      .id(null)
                       .name(authorDTO.getName())
                       .build()
             );

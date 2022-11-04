@@ -9,9 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.retrotv.bookmanagement.domain.common.CommonEntity;
 import me.retrotv.bookmanagement.util.EncryptUtil;
 
 /**
@@ -34,16 +32,8 @@ import me.retrotv.bookmanagement.util.EncryptUtil;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "MEMBER")
-public class Member {
+public class Member extends CommonEntity {
 
-    /*
-     * 식별을 위한 고유 ID 값 [PRIMARY KEY]
-     */
-    @Id
-    @Column(name = "MEMBER_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    
     /*
      * 사용자의 아이디 [UNIQUE, NOT NULL]
      */

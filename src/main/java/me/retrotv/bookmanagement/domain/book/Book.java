@@ -1,29 +1,23 @@
 package me.retrotv.bookmanagement.domain.book;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.retrotv.bookmanagement.domain.author.AuthorDTO;
+import me.retrotv.bookmanagement.domain.common.CommonEntity;
 import me.retrotv.bookmanagement.domain.image.Image;
 import me.retrotv.bookmanagement.domain.member.Member;
 import me.retrotv.bookmanagement.domain.publisher.Publisher;
@@ -34,21 +28,13 @@ import me.retrotv.bookmanagement.relation.BookAuthor;
  * @version 1.0
  * @author yjj8353
  */
+@Entity
 @Getter
 @Builder
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "BOOK")
-public class Book {
-    
-    /*
-     * 식별을 위한 고유 ID 값 [PRIMARY KEY]
-     */
-    @Id
-    @Column(name = "BOOK_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+public class Book extends CommonEntity {
 
     /*
      * 제목 [NOT NULL]
@@ -88,20 +74,6 @@ public class Book {
     @JoinColumn(name = "MEMBER_ID")
     @OneToOne
     private Member member;
-
-    /*
-     * 등록 시간
-     */
-    @Column(name = "BOOK_REGIST_DATE", nullable = false)
-    @CreationTimestamp
-    private LocalDateTime registDate;
-
-    /*
-     * 수정 시간
-     */
-    @Column(name = "BOOK_UPDATE_DATE", nullable = false)
-    @UpdateTimestamp
-    private LocalDateTime updateDate;
 
     /**
      * 출판사 정보 수정을 위한 함수
@@ -166,7 +138,7 @@ public class Book {
         }
 
         return BookDTO.builder()
-                      .id(this.id)
+                      .id(this.getId())
                       .title(this.title)
                       .isbn(this.isbn)
                       .authorDTOs(authorDTOs)
