@@ -6,10 +6,10 @@
 # 프로젝트 동작과정 (사진 포함)
 https://yjj8353.gitbook.io/bookmanagement/undefined-4
 
-# 데모 사이트
+# 데모 사이트 (폐쇄)
 * 데모 사이트를 사용하기 전에 README 읽어주시고 숙지해 주시기 바랍니다.
 * 현재 데모 사이트는 개발 단계의 사이트로 개발자가 인지하지 못한 오류가 있을 수 있습니다. 오류를 발견하시면 이슈로 알려주세요!
-https://bookmanagement.retrotv.me:8443
+~~https://bookmanagement.retrotv.me:8443~~
 
 # 프로젝트 설명
 ## 이 프로젝트는?
